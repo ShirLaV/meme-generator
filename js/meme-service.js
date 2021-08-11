@@ -10,6 +10,25 @@ function addLine(txt) {
     gMeme.lines.push(_createLine(txt));
 }
 
+function deleteLine() {
+    if (!gMeme.lines.length) return;
+    gMeme.lines.splice(gMeme.selectedLineIdx, 1);
+    selectLine();
+}
+
+function setColor(diff, color) {
+    if (!gMeme.lines.length) return;
+    const currLine = gMeme.lines[gMeme.selectedLineIdx];
+    switch (diff) {
+        case 'stroke':
+            currLine.strokeColor = color;
+            break;
+        case 'font':
+            currLine.fontColor = color;
+    }
+
+}
+
 function getImgId() {
     return gMeme.selectedImgId;
 }
@@ -19,32 +38,40 @@ function getLines() {
 }
 
 function getLine() {
-    return gMeme.lines[selectedLineIdx];
+    return gMeme.lines[gMeme.selectedLineIdx];
 }
 
 function setMemeImg(id) {
     gMeme.selectedImgId = id;
 }
 
+function selectLine() {
+    if (gMeme.lines[gMeme.selectedLineIdx]) gMeme.lines[gMeme.selectedLineIdx].isSelected = false;
+    let currIdx = gMeme.selectedLineIdx;
+    gMeme.selectedLineIdx = (currIdx < gMeme.lines.length - 1) ? ++currIdx : 0;
+    gMeme.lines[gMeme.selectedLineIdx].isSelected = true;
+}
+
 function setFontSize(diff) {
     if (!gMeme.lines.length) return;
     const lineIdx = gMeme.selectedLineIdx;
-    console.log('gMeme.lines[lineIdx].size', gMeme.lines[lineIdx].size)
     gMeme.lines[lineIdx].size += diff;
-    console.log('gMeme.lines[lineIdx].size', gMeme.lines[lineIdx].size)
 }
 
 function setLinePos(diff) {
+    if (!gMeme.lines.length) return;
     const lineIdx = gMeme.selectedLineIdx;
     gMeme.lines[lineIdx].diffFromCenter += diff
 }
 
-function _createLine(txt, size = 48, align = 'center', color = 'white') {
+function _createLine(txt, size = 48, align = 'center', fontColor = 'white', strokeColor = 'black') {
     return {
         txt,
         size,
         align,
-        color,
-        diffFromCenter: 0
+        fontColor,
+        strokeColor,
+        diffFromCenter: 0,
+        isSelected: false
     }
 }

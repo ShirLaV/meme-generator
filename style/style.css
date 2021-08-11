@@ -2,15 +2,30 @@
     box-sizing: border-box;
 }
 
+
+/* BASIC */
+
 body {
-    margin: 0;
+    background-color: rgb(53, 50, 50);
+}
+
+img {
+    max-width: 100%;
+    max-height: 100%;
 }
 
 
 /* HEADER */
 
 header {
-    background-color: rgb(138, 134, 134);
+    background-color: rgb(57, 180, 182);
+    border-radius: 15px;
+}
+
+header .logo,
+header a {
+    font-family: sans-serif;
+    color: white
 }
 
 header .logo {
@@ -50,6 +65,35 @@ header a {
     border: 2px solid black;
 }
 
+.meme-editor .opt-btn {
+    background-color: white;
+    height: 50px;
+    width: 50px;
+    border: none;
+    border-radius: 7px;
+    box-shadow: 0px 10px 0px 0px rgba(61, 61, 61, 0.72);
+}
+
+.meme-editor .opt-btn.delete {
+    background-color: red;
+}
+
+.meme-editor .opt-btn.add {
+    background-color: rgb(72, 191, 86);
+}
+
+.meme-editor .opt-btn.switch-line {
+    background-color: rgb(63, 165, 212);
+}
+
+[name="stroke-color"] {
+    display: none;
+}
+
+.text-options {
+    background-color: rgb(96, 172, 172);
+}
+
 
 /* HELPERS */
 
@@ -63,6 +107,10 @@ header a {
 
 .flex.align-center {
     align-items: center;
+}
+
+.flex.justify-center {
+    justify-content: center;
 }
 
 .clean-list {
