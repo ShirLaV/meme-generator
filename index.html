@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style.css">
+    <title>Shir Lavi - Meme Generator</title>
+</head>
+
+<body onload="onInit()">
+    <header class="flex space-bwtween align-center">
+        <div class="logo">Logo</div>
+        <nav>
+            <ul class="header-nav flex clean-list">
+                <li><a class="flex align-center" href=" # ">Gallery</a></li>
+                <li><a class="flex align-center" href="# ">Memes</a></li>
+                <li><a class="flex align-center" href="# ">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="gallery-page">
+        <nav class="flex">
+            <button>Search</button>
+            <div class="search-words-container">Funny Animal...</div>
+        </nav>
+        <main>
+            <div class="images-container"></div>
+        </main>
+    </section>
+
+    <section class="meme-editor" hidden>
+        <section class="canvas-container">
+            <canvas class="main-canvas" width="500" height="500"></canvas>
+        </section>
+        <section class="edit-options-container">
+            Edit Options Here
+            <input type="text" name="text" placeholder="type text here" onchange="onSetLine(this.value)">
+        </section>
+    </section>
+
+
+    <script src="js/storage-service.js"></script>
+    <script src="js/gallery-service.js"></script>
+    <script src="js/meme-service.js"></script>
+    <script src="js/editor-controller.js"></script>
+    <script src="js/gallery-controller.js"></script>
+    <script src="js/main-controller.js"></script>
+</body>
+
+</html>
