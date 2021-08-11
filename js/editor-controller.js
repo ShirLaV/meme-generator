@@ -14,7 +14,6 @@ function renderCanvas() {
     drawLines();
 }
 
-
 function onSwitchLine() {
     selectLine();
     renderCanvas();

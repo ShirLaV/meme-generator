@@ -17,6 +17,7 @@ function onToggleEditor(ev) {
 
 function onSetMemeImg(ev) {
     const id = +ev.target.id;
+    initMeme();
     setMemeImg(id);
     onEditorInit();
 }

@@ -1,9 +1,13 @@
 'use strict'
 
-var gMeme = {
-    selectedImgId: 1,
-    selectedLineIdx: 0,
-    lines: []
+let gMeme;
+
+function initMeme() {
+    gMeme = {
+        selectedImgId: 1,
+        selectedLineIdx: 0,
+        lines: []
+    }
 }
 
 function addLine(txt) {
