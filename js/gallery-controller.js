@@ -9,22 +9,22 @@ function renderImgs() {
     addImgEventListeners();
 }
 
-function onOpenEditor() {
-    document.querySelector('.meme-editor').hidden = false;
-    document.querySelector('.gallery-page').hidden = true;
+function onToggleEditor(ev) {
+    if (ev.target.classList.contains('gallery') && !document.querySelector('.gallery-page').hidden) return;
+    document.querySelector('.meme-editor').hidden = !document.querySelector('.meme-editor').hidden;
+    document.querySelector('.gallery-page').hidden = !document.querySelector('.gallery-page').hidden;
 }
 
 function onSetMemeImg(ev) {
     const id = +ev.target.id;
-    // console.log('id', id)
     setMemeImg(id);
-    renderCanvas();
+    onEditorInit();
 }
 
 function addImgEventListeners() {
     const ElImgs = document.querySelectorAll('.meme-img');
     ElImgs.forEach(elImg => {
-        elImg.addEventListener("click", onOpenEditor);
+        elImg.addEventListener("click", onToggleEditor);
         elImg.addEventListener("click", onSetMemeImg);
     })
 }

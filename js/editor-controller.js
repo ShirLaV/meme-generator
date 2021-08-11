@@ -2,8 +2,11 @@
 
 const gElCanvas = document.querySelector('.main-canvas');
 const gCtx = gElCanvas.getContext('2d');
+let gIsAdding = false;
 
-// console.log('gCtx', gCtx)
+function onEditorInit() {
+    renderCanvas();
+}
 
 function renderCanvas() {
     clearCanvas();
@@ -11,19 +14,31 @@ function renderCanvas() {
     drawLines();
 }
 
+
 function onSwitchLine() {
     selectLine();
     renderCanvas();
 }
 
 function onAddLine() {
+    onEditText(true);
+}
+
+function onEditText(isNewLine) {
+    const lines = getLines();
+    //if first line-
+    if (!lines.length) isNewLine = true;
     const elEditLine = document.querySelector('[name="text"]');
     const txt = elEditLine.value;
-    if (!txt) return;
-    addLine(txt);
-    drawLines();
+    if (isNewLine) {
+        addLine(txt);
+        onSwitchLine();
+    } else {
+        const line = getLine();
+        line.txt = txt;
+    }
     elEditLine.value = '';
-    onSwitchLine();
+    renderCanvas();
 }
 
 function onDeleteLine() {
@@ -46,14 +61,13 @@ function onColorChange(diff, color) {
     renderCanvas();
 }
 
-function onSetFontColor(fontColor) {
-    setfontColor(fontColor);
+function onAlignText(diff) {
+    alignText(diff);
     renderCanvas();
 }
 
 function drawLines() {
     const lines = getLines();
-    if (!lines.length) return
     lines.forEach(line => {
         drawLine(line);
     });
@@ -66,11 +80,11 @@ function drawLine(line = getLine()) {
     gCtx.strokeStyle = line.strokeColor;
     gCtx.fillStyle = line.fontColor;
     const textWidth = gCtx.measureText(txt).width;
-    gCtx.fillText(txt, (gElCanvas.width / 2) - (textWidth / 2), gElCanvas.height / 2 + line.diffFromCenter);
-    gCtx.strokeText(txt, (gElCanvas.width / 2) - (textWidth / 2), gElCanvas.height / 2 + line.diffFromCenter);
+    gCtx.textAlign = line.align;
+    gCtx.fillText(txt, (gElCanvas.width / 2), gElCanvas.height / 2 + line.diffFromCenter);
+    gCtx.strokeText(txt, (gElCanvas.width / 2), gElCanvas.height / 2 + line.diffFromCenter);
     if (line.isSelected) highlightSelectedLine();
 }
-
 
 function drawImg() {
     var img = new Image();
@@ -88,10 +102,10 @@ function highlightSelectedLine() {
     const txt = line.txt;
     const textWidth = gCtx.measureText(txt).width;
     gCtx.beginPath();
-    const x = (gElCanvas.width / 2) - (textWidth / 2) - 40;
+    const x = (gElCanvas.width / 2) - (textWidth / 2) - 100;
     const y = (gElCanvas.height / 2) + line.diffFromCenter - line.size;
-    const width = textWidth + 80;
-    const hegith = line.size + 20
+    const width = textWidth + 200;
+    const hegith = line.size + 20;
     gCtx.rect(x, y, width, hegith);
     gCtx.strokeStyle = 'white';
     gCtx.lineWidth = 2;
