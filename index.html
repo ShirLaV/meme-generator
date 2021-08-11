@@ -38,6 +38,14 @@
         <section class="edit-options-container">
             Edit Options Here
             <input type="text" name="text" placeholder="type text here" onchange="onSetLine(this.value)">
+            <div class="line-options">
+                <button onclick="onLinePosChange(-1)">↑</button>
+                <button onclick="onLinePosChange(1)">↓</button>
+            </div>
+            <div class="text-options">
+                <button onclick="onFontSizeChange(1)">A+</button>
+                <button onclick="onFontSizeChange(-1)">A-</button>
+            </div>
         </section>
     </section>
 

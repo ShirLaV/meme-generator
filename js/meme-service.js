@@ -8,21 +8,35 @@ var gMeme = {
 
 function addLine(txt) {
     gMeme.lines.push(_createLine(txt));
-    // console.log('gMeme.lines', gMeme.lines)
 }
 
 function getImgId() {
     return gMeme.selectedImgId;
 }
 
+function getLines() {
+    return gMeme.lines;
+}
+
 function getLine() {
-    return gMeme.lines[0];
+    return gMeme.lines[selectedLineIdx];
 }
 
 function setMemeImg(id) {
-    console.log('gMeme.selectedImgId', gMeme.selectedImgId)
     gMeme.selectedImgId = id;
-    console.log('gMeme.selectedImgId', gMeme.selectedImgId)
+}
+
+function setFontSize(diff) {
+    if (!gMeme.lines.length) return;
+    const lineIdx = gMeme.selectedLineIdx;
+    console.log('gMeme.lines[lineIdx].size', gMeme.lines[lineIdx].size)
+    gMeme.lines[lineIdx].size += diff;
+    console.log('gMeme.lines[lineIdx].size', gMeme.lines[lineIdx].size)
+}
+
+function setLinePos(diff) {
+    const lineIdx = gMeme.selectedLineIdx;
+    gMeme.lines[lineIdx].diffFromCenter += diff
 }
 
 function _createLine(txt, size = 48, align = 'center', color = 'white') {
@@ -30,6 +44,7 @@ function _createLine(txt, size = 48, align = 'center', color = 'white') {
         txt,
         size,
         align,
-        color
+        color,
+        diffFromCenter: 0
     }
 }

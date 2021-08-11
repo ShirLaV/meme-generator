@@ -16,9 +16,9 @@ function onOpenEditor() {
 
 function onSetMemeImg(ev) {
     const id = +ev.target.id;
-    console.log('id', id)
+    // console.log('id', id)
     setMemeImg(id);
-    drawImg();
+    renderCanvas();
 }
 
 function addImgEventListeners() {
