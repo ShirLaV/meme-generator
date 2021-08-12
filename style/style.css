@@ -124,7 +124,6 @@ header a:last-child {
 }
 
 .search-words {
-    font-size: 0.7rem;
     width: 70%;
     height: 55px;
     background-color: #87898d;
@@ -133,11 +132,11 @@ header a:last-child {
     align-items: center;
 }
 
-.search-words p:first-child {
+.search-words li:first-child {
     margin-inline-start: 20px;
 }
 
-.search-words p {
+.key-word {
     color: white;
     margin-inline-end: 20px;
 }
@@ -158,6 +157,7 @@ header a:last-child {
     gap: 15px;
     padding-inline: 10px;
     justify-items: center;
+    padding-bottom: 40px;
 }
 
 .meme-img {
@@ -192,8 +192,8 @@ header a:last-child {
     position: absolute;
     display: block;
     margin: 0 auto;
-    /* border-radius: 25px;
-    border: 8px solid #4d515ea6; */
+    border-radius: 20px;
+    /* border: 8px solid #4d515ea6; */
 }
 
 
@@ -269,6 +269,10 @@ header a:last-child {
 
 .font-pick {
     grid-column: span 3;
+    border-radius: 7px;
+    height: 3.125rem;
+    font-size: 1.5rem;
+    font-weight: bold;
 }
 
 .stickers-container {

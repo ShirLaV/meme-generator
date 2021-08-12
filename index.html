@@ -33,12 +33,7 @@
         <nav class="flex main-layout">
             <input type="text" name="search-box" placeholder="search">
             <div class="flex search-words-container">
-                <div class="search-words flex">
-                    <p>Happy</p>
-                    <p>Animal</p>
-                    <p>Man</p>
-                    <p>Woman</p>
-                </div>
+                <ul class="search-words clean-list"></ul>
                 <button>More</button>
             </div>
         </nav>
@@ -61,13 +56,16 @@
 
             <div class="line-options flex">
                 <button class="opt-btn switch-line" onclick="onSwitchLine()"><img
-                        src="style/DESIGN/ICONS/up-and-down-opposite-double-arrows-side-by-side.png"></button>
+                        src="style/DESIGN/ICONS/up-and-down-opposite-double-arrows-side-by-side.png">
+                </button>
                 <button class="opt-btn add" onclick="onAddLine()">
                     <img src="style/DESIGN/ICONS/add.png">
                 </button>
-                <button class="opt-btn delete" onclick="onDeleteLine()"><img
-                        src="style/DESIGN/ICONS/trash.png"></button>
+                <button class="opt-btn delete" onclick="onDeleteLine()">
+                    <img src="style/DESIGN/ICONS/trash.png">
+                </button>
             </div>
+
             <div class="text-options">
                 <button class="opt-btn font-up" onclick="onFontSizeChange(2)">
                     <img src="style/DESIGN/ICONS/increase font - icon.png">
@@ -75,15 +73,19 @@
                 <button class="opt-btn font-down" onclick="onFontSizeChange(-2)">
                     <img src="style/DESIGN/ICONS/decrease font - icon.png">
                 </button class="opt-btn">
-                <button class="opt-btn"><img src="style/DESIGN/ICONS/align-to-left.png"
-                        onclick="onAlignText('end')"></button>
-                <button class="opt-btn"><img src="style/DESIGN/ICONS/center-text-alignment.png"
-                        onclick="onAlignText('center')"></button>
+                <button class="opt-btn">
+                    <img src="style/DESIGN/ICONS/align-to-left.png" onclick="onAlignText('end')">
+                </button>
+                <button class="opt-btn">
+                    <img src="style/DESIGN/ICONS/center-text-alignment.png" onclick="onAlignText('center')">
+                </button>
                 <button class="opt-btn"><img src="style/DESIGN/ICONS/align-to-right.png"
                         onclick="onAlignText('start')"></button>
 
-                <select class="font-pick">
-                    <option>IMPACT</option>
+                <select class="font-pick" onchange="onSetFontFamily(this.value)">
+                    <option value="Impact">IMPACT</option>
+                    <option value="Arial">ARIEL</option>
+                    <option value="Poppins-medium">POPPINS</option>
                 </select>
                 <label>
                     <img class="opt-btn" src="style/DESIGN/ICONS/text stroke.png">
@@ -94,10 +96,11 @@
                     <input type="color" name="font-color" onchange="onColorChange('font', this.value)">
                 </label>
             </div>
+
             <!-- <div class="stickers-container">stickers</div> -->
+
             <div class="rect-btn-container flex">
                 <button class="rect-btn share-btn" onclick=" onShareImg()">share</button>
-                <!-- <a class="rect-btn share-btn" onclick="onShareImg(this)">Share </a> -->
                 <a href="#" class="rect-btn download-btn" onclick="onDownloadImg(this)" download="my-img.jpg">download</a>
             </div>
         </section>

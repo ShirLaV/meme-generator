@@ -2,5 +2,5 @@
 
 function onInit() {
     addGalleryEventListeners();
-    renderImgs();
+    initGallety();
 }

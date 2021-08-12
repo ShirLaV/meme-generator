@@ -6,7 +6,7 @@ const gTouchEvs = ['touchstart', 'touchmove', 'touchend'];
 let gStartPos;
 let gIsImgReady;
 
-function onEditorInit() {
+function initEditorMeme() {
     gIsImgReady = false;
     resizeCanvas();
     onAddLine();
@@ -14,7 +14,6 @@ function onEditorInit() {
 }
 
 function renderCanvas() {
-    // resizeCanvas()
     clearCanvas();
     drawImg();
     drawLines();
@@ -28,7 +27,7 @@ function onSwitchLine() {
 }
 
 function onAddLine(txt = 'your text') {
-    addLine(txt);
+    addLine(txt, gElCanvas.width / 10);
     selectLine();
     document.querySelector('[name="text"]').value = '';
     document.querySelector('[name="text"]').placeholder = 'Type your text here';
@@ -47,13 +46,14 @@ function onFontSizeChange(diff) {
     renderCanvas();
 }
 
-// function onLinePosChange(diff) {
-//     setLinePos(diff);
-//     renderCanvas();
-// }
-
 function onColorChange(diff, color) {
     setColor(diff, color);
+    renderCanvas();
+}
+
+function onSetFontFamily(fontFamily) {
+    setFontFamily(fontFamily);
+    console.log(fontFamily)
     renderCanvas();
 }
 
@@ -71,14 +71,14 @@ function drawLines() {
 
 function drawLine(line) {
     const txt = line.txt;
-    gCtx.font = `${line.size}px impact`;
+    gCtx.font = `${line.size}px ${line.fontFamily}`;
     gCtx.lineWidth = 2;
     gCtx.strokeStyle = line.strokeColor;
     gCtx.fillStyle = line.fontColor;
-    const textWidth = gCtx.measureText(txt).width;
+    // const textWidth = gCtx.measureText(txt).width;
     gCtx.textAlign = line.align;
     if (!line.x) line.x = gElCanvas.width / 2;
-    if (!line.y) line.y = gElCanvas.height / 2 + line.diffFromCenter;
+    if (!line.y) line.y = gElCanvas.height / 2;
     gCtx.fillText(txt, line.x, line.y);
     gCtx.strokeText(txt, line.x, line.y);
     if (line.isSelected) highlightSelectedLine();
@@ -93,24 +93,6 @@ function onEditText() {
     line.txt = txt;
     renderCanvas();
 }
-// function onEditText(ev) {
-//     const line = getLine();
-//     const letter = ev.key;
-//     if (!line) {
-//         onAddLine(letter);
-//         return;
-//     }
-//     if (letter === 'Backspace') {
-//         line.txt = line.txt.substring(0, line.txt.length - 1)
-//         renderCanvas();
-//         return;
-//     }
-//     const regex = /^[\w\s_!@#$%^&*()-+=.<>~`/]$/;
-//     if (!regex.test(letter)) return;
-//     const txt = (line.txt === 'your text') ? '' : line.txt;
-//     line.txt = txt + letter;
-//     renderCanvas();
-// }
 
 function drawImg() {
     var img = new Image();
@@ -174,6 +156,7 @@ function addTouchListeners() {
 function onDown(ev) {
     const pos = getEvPos(ev);
     if (!isLineClicked(pos)) return;
+    console.log('yes')
     setLineDrag(true);
     gStartPos = pos;
     document.body.style.cursor = 'grabbing';
@@ -181,7 +164,9 @@ function onDown(ev) {
 
 function onMove(ev) {
     const line = getLine();
+    if (!line) return;
     if (line.isDrag) {
+        console.log('hey')
         const pos = getEvPos(ev);
         const dx = pos.x - gStartPos.x;
         const dy = pos.y - gStartPos.y;
@@ -241,10 +226,8 @@ function onShareImg() {
 }
 
 function doUploadImg(imgDataUrl, onSuccess) {
-
     const formData = new FormData();
     formData.append('img', imgDataUrl)
-
     fetch('//ca-upload.com/here/upload.php', {
             method: 'POST',
             body: formData

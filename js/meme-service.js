@@ -10,8 +10,8 @@ function initMeme() {
     }
 }
 
-function addLine(txt) {
-    gMeme.lines.push(_createLine(txt));
+function addLine(txt, size) {
+    gMeme.lines.push(_createLine(txt, size));
 }
 
 function deleteLine() {
@@ -44,6 +44,11 @@ function setColor(diff, color) {
     }
 }
 
+function setFontFamily(fontFamily) {
+    const currLine = gMeme.lines[gMeme.selectedLineIdx];
+    currLine.fontFamily = fontFamily;
+}
+
 function setMemeImg(id) {
     gMeme.selectedImgId = id;
 }
@@ -62,12 +67,6 @@ function setFontSize(diff) {
     gMeme.lines[lineIdx].size += diff;
 }
 
-// function setLinePos(diff) {
-//     if (!gMeme.lines.length) return;
-//     const lineIdx = gMeme.selectedLineIdx;
-//     gMeme.lines[lineIdx].diffFromCenter += diff
-// }
-
 function alignText(diff) {
     const currLine = gMeme.lines[gMeme.selectedLineIdx];
     currLine.align = diff;
@@ -77,7 +76,7 @@ function alignText(diff) {
 
 function isLineClicked(clickedPos) {
     const currLine = gMeme.lines[gMeme.selectedLineIdx];
-    const distance = Math.sqrt((currLine.x - clickedPos.x) ** 2 + (currLine.y - clickedPos.y) ** 2)
+    const distance = Math.sqrt((currLine.x - clickedPos.x) ** 2 + (currLine.y - clickedPos.y) ** (-2))
     return distance <= currLine.size;
 }
 
@@ -92,14 +91,15 @@ function moveLine(dx, dy) {
     currLine.y += dy
 }
 
-function _createLine(txt = '', size = 48, align = 'center', fontColor = 'white', strokeColor = 'black') {
+function _createLine(txt = '', size, fontFamily = 'impact',
+    align = 'center', fontColor = 'white', strokeColor = 'black') {
     return {
         txt,
         size,
+        fontFamily,
         align,
         fontColor,
         strokeColor,
-        diffFromCenter: 0,
         isSelected: true
     }
 }
