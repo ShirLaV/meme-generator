@@ -4,14 +4,17 @@ const gElCanvas = document.querySelector('.main-canvas');
 const gCtx = gElCanvas.getContext('2d');
 const gTouchEvs = ['touchstart', 'touchmove', 'touchend'];
 let gStartPos;
+let gIsImgReady;
 
 function onEditorInit() {
+    gIsImgReady = false;
+    resizeCanvas();
     onAddLine();
     addListeners();
 }
 
 function renderCanvas() {
-    resizeCanvas()
+    // resizeCanvas()
     clearCanvas();
     drawImg();
     drawLines();
@@ -122,8 +125,6 @@ function clearCanvas() {
 
 function resizeCanvas() {
     const elContainer = document.querySelector('.canvas-container');
-    // gElCanvas.width = elContainer.offsetWidth;
-    // gElCanvas.height = gElCanvas.width;
     gElCanvas.style.width = '100%';
     gElCanvas.style.height = '100%';
     // ...then set the internal size to match
@@ -131,8 +132,8 @@ function resizeCanvas() {
     gElCanvas.height = elContainer.offsetHeight;
 }
 
-
 function highlightSelectedLine() {
+    if (gIsImgReady) return;
     const line = getLine();
     const txt = line.txt;
     const textWidth = gCtx.measureText(txt).width;
@@ -172,7 +173,7 @@ function addTouchListeners() {
 
 function onDown(ev) {
     const pos = getEvPos(ev);
-    if (!isLineClicked(pos)) return
+    if (!isLineClicked(pos)) return;
     setLineDrag(true);
     gStartPos = pos;
     document.body.style.cursor = 'grabbing';
@@ -201,12 +202,59 @@ function getEvPos(ev) {
         y: ev.offsetY
     }
     if (gTouchEvs.includes(ev.type)) {
-        ev.preventDefault()
-        ev = ev.changedTouches[0]
+        ev.preventDefault();
+        ev = ev.changedTouches[0];
         pos = {
             x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
             y: ev.pageY - ev.target.offsetTop - ev.target.clientTop
         }
     }
     return pos
+}
+
+// download&share
+
+function onDownloadImg(elLink) {
+    gIsImgReady = true;
+    renderCanvas();
+    const imgContent = gElCanvas.toDataURL('image/jpeg');
+    elLink.href = imgContent;
+    gIsImgReady = false;
+}
+
+function onShareImg() {
+    gIsImgReady = true;
+    renderCanvas();
+    const imgDataUrl = gElCanvas.toDataURL("image/jpeg");
+
+    function onSuccess(uploadedImgUrl) {
+        const encodedUploadedImgUrl = encodeURIComponent(uploadedImgUrl);
+        // document.querySelector('.user-msg').innerText = `Your photo is available here: ${uploadedImgUrl}`
+
+        document.querySelector('.share-btn').innerHTML = `
+        <a class="btn" href="https://www.facebook.com/sharer/sharer.php?u=${encodedUploadedImgUrl}&t=${encodedUploadedImgUrl}" title="Share on Facebook" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}'); return false;">
+           Share   
+        </a>`
+    }
+    doUploadImg(imgDataUrl, onSuccess);
+    gIsImgReady = false;
+}
+
+function doUploadImg(imgDataUrl, onSuccess) {
+
+    const formData = new FormData();
+    formData.append('img', imgDataUrl)
+
+    fetch('//ca-upload.com/here/upload.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(res => res.text())
+        .then((url) => {
+            console.log('Got back live url:', url);
+            onSuccess(url)
+        })
+        .catch((err) => {
+            console.error(err)
+        })
 }

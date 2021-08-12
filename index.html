@@ -57,7 +57,7 @@
 
         <section class="edit-options-container flex align-center">
 
-            <input type="text" name="text" id="text" placeholder="Type text here" oninput="onEditText(event)">
+            <input type="text" name="text" id="text" placeholder="Type text here" oninput="onEditText(event)" autocomplete="off" autofocus>
 
             <div class="line-options flex">
                 <button class="opt-btn switch-line" onclick="onSwitchLine()"><img
@@ -96,8 +96,9 @@
             </div>
             <!-- <div class="stickers-container">stickers</div> -->
             <div class="rect-btn-container flex">
-                <button class="rect-btn share-btn">share</button>
-                <button class="rect-btn download-btn">download</button>
+                <button class="rect-btn share-btn" onclick=" onShareImg()">share</button>
+                <!-- <a class="rect-btn share-btn" onclick="onShareImg(this)">Share </a> -->
+                <a href="#" class="rect-btn download-btn" onclick="onDownloadImg(this)" download="my-img.jpg">download</a>
             </div>
         </section>
     </section>

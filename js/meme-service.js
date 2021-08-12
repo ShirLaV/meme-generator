@@ -20,18 +20,6 @@ function deleteLine() {
     selectLine();
 }
 
-function setColor(diff, color) {
-    if (!gMeme.lines.length) return;
-    const currLine = gMeme.lines[gMeme.selectedLineIdx];
-    switch (diff) {
-        case 'stroke':
-            currLine.strokeColor = color;
-            break;
-        case 'font':
-            currLine.fontColor = color;
-    }
-}
-
 function getImgId() {
     return gMeme.selectedImgId;
 }
@@ -42,6 +30,18 @@ function getLines() {
 
 function getLine() {
     return gMeme.lines[gMeme.selectedLineIdx];
+}
+
+function setColor(diff, color) {
+    if (!gMeme.lines.length) return;
+    const currLine = gMeme.lines[gMeme.selectedLineIdx];
+    switch (diff) {
+        case 'stroke':
+            currLine.strokeColor = color;
+            break;
+        case 'font':
+            currLine.fontColor = color;
+    }
 }
 
 function setMemeImg(id) {
@@ -62,11 +62,11 @@ function setFontSize(diff) {
     gMeme.lines[lineIdx].size += diff;
 }
 
-function setLinePos(diff) {
-    if (!gMeme.lines.length) return;
-    const lineIdx = gMeme.selectedLineIdx;
-    gMeme.lines[lineIdx].diffFromCenter += diff
-}
+// function setLinePos(diff) {
+//     if (!gMeme.lines.length) return;
+//     const lineIdx = gMeme.selectedLineIdx;
+//     gMeme.lines[lineIdx].diffFromCenter += diff
+// }
 
 function alignText(diff) {
     const currLine = gMeme.lines[gMeme.selectedLineIdx];
