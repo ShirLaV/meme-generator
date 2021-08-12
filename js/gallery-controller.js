@@ -9,6 +9,11 @@ function renderImgs() {
     addImgEventListeners();
 }
 
+
+function onToggleMenu() {
+    document.querySelector('body').classList.toggle('menu-open');
+}
+
 function onToggleEditor(ev) {
     if (ev.target.classList.contains('gallery') && !document.querySelector('.gallery-page').hidden) return;
     document.querySelector('.meme-editor').hidden = !document.querySelector('.meme-editor').hidden;
@@ -28,4 +33,10 @@ function addImgEventListeners() {
         elImg.addEventListener("click", onToggleEditor);
         elImg.addEventListener("click", onSetMemeImg);
     })
+}
+
+function addGalleryEventListeners() {
+    const ElGalleryA = document.querySelector('.gallery');
+    ElGalleryA.addEventListener("click", onToggleEditor);
+    ElGalleryA.addEventListener("click", onToggleMenu);
 }

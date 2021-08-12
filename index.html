@@ -10,42 +10,56 @@
 </head>
 
 <body onload="onInit()">
-    <header class="page-layout">
-        <div class="header conteiner main-layout flex space-bwtween align-center">
+    <div class="screen" onclick="onToggleMenu()"></div>
+
+    <header>
+        <div class="header-conteiner main-layout flex space-bwtween align-center">
             <div class="logo flex align-center justify-center">
                 Memegen
             </div>
             <nav>
                 <ul class="header-nav flex clean-list">
-                    <li><a class="flex align-center gallery" href="# " onclick="onToggleEditor(event)">Gallery</a></li>
-                    <li><a class="flex align-center" href="# ">Memes</a></li>
-                    <li><a class="flex align-center" href="# ">About</a></li>
+                    <li class="flex align-center"><a class="flex align-center justify-center gallery active" href="# ">Gallery</a></li>
+                    <li class="flex align-center"><a class="flex align-center justify-center" onclick="onToggleMenu()" href="# ">Memes</a></li>
+                    <li class="flex align-center"><a class="flex align-center justify-center" onclick="onToggleMenu()" href="# ">About</a></li>
                 </ul>
             </nav>
+            <button class="btn-menu-toggle" onclick="onToggleMenu()">☰</button>
         </div>
     </header>
 
+
     <section class="gallery-page page-layout">
-        <nav class="flex">
-            <button>Search</button>
-            <div class="search-words-container">Funny Animal...</div>
+        <nav class="flex main-layout">
+            <input type="text" name="search-box" placeholder="search">
+            <div class="flex search-words-container">
+                <div class="search-words flex">
+                    <p>Happy</p>
+                    <p>Animal</p>
+                    <p>Man</p>
+                    <p>Woman</p>
+                </div>
+                <button>More</button>
+            </div>
         </nav>
         <main>
             <div class="images-container main-layout"></div>
         </main>
     </section>
 
+
+
     <section class="meme-editor main-layout flex" hidden>
+
         <section class="canvas-container">
-            <canvas class="main-canvas" width="500" height="500"></canvas>
+            <canvas class="main-canvas"></canvas>
         </section>
-        <section class="edit-options-container">
-            <input type="text" name="text" id="text" placeholder="type text here" onchange="onEditText(false)">
-            <div class="line-options">
-                <button class="opt-btn line-up" onclick="onLinePosChange(-1)">
-                    ↑
-                </button>
-                <button class="opt-btn line-down" onclick="onLinePosChange(1)">↓</button>
+
+        <section class="edit-options-container flex align-center">
+
+            <input type="text" name="text" id="text" placeholder="Type text here" oninput="onEditText(event)">
+
+            <div class="line-options flex">
                 <button class="opt-btn switch-line" onclick="onSwitchLine()"><img
                         src="style/DESIGN/ICONS/up-and-down-opposite-double-arrows-side-by-side.png"></button>
                 <button class="opt-btn add" onclick="onAddLine()">
@@ -55,10 +69,10 @@
                         src="style/DESIGN/ICONS/trash.png"></button>
             </div>
             <div class="text-options">
-                <button class="opt-btn font-up" onclick="onFontSizeChange(1)">
+                <button class="opt-btn font-up" onclick="onFontSizeChange(2)">
                     <img src="style/DESIGN/ICONS/increase font - icon.png">
                 </button>
-                <button class="opt-btn font-down" onclick="onFontSizeChange(-1)">
+                <button class="opt-btn font-down" onclick="onFontSizeChange(-2)">
                     <img src="style/DESIGN/ICONS/decrease font - icon.png">
                 </button class="opt-btn">
                 <button class="opt-btn"><img src="style/DESIGN/ICONS/align-to-left.png"
@@ -68,7 +82,7 @@
                 <button class="opt-btn"><img src="style/DESIGN/ICONS/align-to-right.png"
                         onclick="onAlignText('start')"></button>
 
-                <select>
+                <select class="font-pick">
                     <option>IMPACT</option>
                 </select>
                 <label>
@@ -79,6 +93,11 @@
                     <img class="opt-btn" src="style/DESIGN/ICONS/paint-board-and-brush.png">
                     <input type="color" name="font-color" onchange="onColorChange('font', this.value)">
                 </label>
+            </div>
+            <!-- <div class="stickers-container">stickers</div> -->
+            <div class="rect-btn-container flex">
+                <button class="rect-btn share-btn">share</button>
+                <button class="rect-btn download-btn">download</button>
             </div>
         </section>
     </section>

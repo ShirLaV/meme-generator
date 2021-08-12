@@ -2,45 +2,39 @@
 
 const gElCanvas = document.querySelector('.main-canvas');
 const gCtx = gElCanvas.getContext('2d');
-let gIsAdding = false;
+const gTouchEvs = ['touchstart', 'touchmove', 'touchend'];
+let gStartPos;
 
 function onEditorInit() {
-    renderCanvas();
+    onAddLine();
+    addListeners();
 }
 
 function renderCanvas() {
+    resizeCanvas()
     clearCanvas();
     drawImg();
     drawLines();
 }
 
 function onSwitchLine() {
+    const elEditLine = document.querySelector('[name="text"]');
     selectLine();
+    elEditLine.value = getLine().txt;
     renderCanvas();
 }
 
-function onAddLine() {
-    onEditText(true);
-}
-
-function onEditText(isNewLine) {
-    const lines = getLines();
-    //if first line-
-    if (!lines.length) isNewLine = true;
-    const elEditLine = document.querySelector('[name="text"]');
-    const txt = elEditLine.value;
-    if (isNewLine) {
-        addLine(txt);
-        onSwitchLine();
-    } else {
-        const line = getLine();
-        line.txt = txt;
-    }
-    elEditLine.value = '';
+function onAddLine(txt = 'your text') {
+    addLine(txt);
+    selectLine();
+    document.querySelector('[name="text"]').value = '';
+    document.querySelector('[name="text"]').placeholder = 'Type your text here';
     renderCanvas();
 }
 
 function onDeleteLine() {
+    document.querySelector('[name="text"]').value = '';
+    document.querySelector('[name="text"]').placeholder = 'Type your text here';
     deleteLine();
     renderCanvas();
 }
@@ -50,10 +44,10 @@ function onFontSizeChange(diff) {
     renderCanvas();
 }
 
-function onLinePosChange(diff) {
-    setLinePos(diff);
-    renderCanvas();
-}
+// function onLinePosChange(diff) {
+//     setLinePos(diff);
+//     renderCanvas();
+// }
 
 function onColorChange(diff, color) {
     setColor(diff, color);
@@ -72,7 +66,7 @@ function drawLines() {
     });
 }
 
-function drawLine(line = getLine()) {
+function drawLine(line) {
     const txt = line.txt;
     gCtx.font = `${line.size}px impact`;
     gCtx.lineWidth = 2;
@@ -80,10 +74,40 @@ function drawLine(line = getLine()) {
     gCtx.fillStyle = line.fontColor;
     const textWidth = gCtx.measureText(txt).width;
     gCtx.textAlign = line.align;
-    gCtx.fillText(txt, (gElCanvas.width / 2), gElCanvas.height / 2 + line.diffFromCenter);
-    gCtx.strokeText(txt, (gElCanvas.width / 2), gElCanvas.height / 2 + line.diffFromCenter);
+    if (!line.x) line.x = gElCanvas.width / 2;
+    if (!line.y) line.y = gElCanvas.height / 2 + line.diffFromCenter;
+    gCtx.fillText(txt, line.x, line.y);
+    gCtx.strokeText(txt, line.x, line.y);
     if (line.isSelected) highlightSelectedLine();
 }
+
+function onEditText() {
+    const line = getLine();
+    if (!line) {
+        return;
+    }
+    const txt = document.querySelector('[name=text]').value;
+    line.txt = txt;
+    renderCanvas();
+}
+// function onEditText(ev) {
+//     const line = getLine();
+//     const letter = ev.key;
+//     if (!line) {
+//         onAddLine(letter);
+//         return;
+//     }
+//     if (letter === 'Backspace') {
+//         line.txt = line.txt.substring(0, line.txt.length - 1)
+//         renderCanvas();
+//         return;
+//     }
+//     const regex = /^[\w\s_!@#$%^&*()-+=.<>~`/]$/;
+//     if (!regex.test(letter)) return;
+//     const txt = (line.txt === 'your text') ? '' : line.txt;
+//     line.txt = txt + letter;
+//     renderCanvas();
+// }
 
 function drawImg() {
     var img = new Image();
@@ -96,17 +120,93 @@ function clearCanvas() {
     gCtx.clearRect(0, 0, gElCanvas.width, gElCanvas.height);
 }
 
+function resizeCanvas() {
+    const elContainer = document.querySelector('.canvas-container');
+    // gElCanvas.width = elContainer.offsetWidth;
+    // gElCanvas.height = gElCanvas.width;
+    gElCanvas.style.width = '100%';
+    gElCanvas.style.height = '100%';
+    // ...then set the internal size to match
+    gElCanvas.width = elContainer.offsetWidth;
+    gElCanvas.height = elContainer.offsetHeight;
+}
+
+
 function highlightSelectedLine() {
     const line = getLine();
     const txt = line.txt;
     const textWidth = gCtx.measureText(txt).width;
     gCtx.beginPath();
-    const x = (gElCanvas.width / 2) - (textWidth / 2) - 100;
-    const y = (gElCanvas.height / 2) + line.diffFromCenter - line.size;
-    const width = textWidth + 200;
-    const hegith = line.size + 20;
+    const x = line.x - textWidth;
+    const y = line.y - line.size * 1.25;
+    const width = textWidth * 2;
+    const hegith = line.size * 2;
     gCtx.rect(x, y, width, hegith);
     gCtx.strokeStyle = 'white';
     gCtx.lineWidth = 2;
     gCtx.stroke();
+}
+
+//DRAG&DROP
+
+function addListeners() {
+    addMouseListeners();
+    addTouchListeners();
+    window.addEventListener('resize', () => {
+        resizeCanvas();
+        renderCanvas();
+    })
+}
+
+function addMouseListeners() {
+    gElCanvas.addEventListener('mousemove', onMove)
+    gElCanvas.addEventListener('mousedown', onDown)
+    gElCanvas.addEventListener('mouseup', onUp)
+}
+
+function addTouchListeners() {
+    gElCanvas.addEventListener('touchmove', onMove)
+    gElCanvas.addEventListener('touchstart', onDown)
+    gElCanvas.addEventListener('touchend', onUp)
+}
+
+function onDown(ev) {
+    const pos = getEvPos(ev);
+    if (!isLineClicked(pos)) return
+    setLineDrag(true);
+    gStartPos = pos;
+    document.body.style.cursor = 'grabbing';
+}
+
+function onMove(ev) {
+    const line = getLine();
+    if (line.isDrag) {
+        const pos = getEvPos(ev);
+        const dx = pos.x - gStartPos.x;
+        const dy = pos.y - gStartPos.y;
+        moveLine(dx, dy);
+        gStartPos = pos;
+        renderCanvas();
+    }
+}
+
+function onUp() {
+    setLineDrag(false);
+    document.body.style.cursor = 'auto'
+}
+
+function getEvPos(ev) {
+    var pos = {
+        x: ev.offsetX,
+        y: ev.offsetY
+    }
+    if (gTouchEvs.includes(ev.type)) {
+        ev.preventDefault()
+        ev = ev.changedTouches[0]
+        pos = {
+            x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
+            y: ev.pageY - ev.target.offsetTop - ev.target.clientTop
+        }
+    }
+    return pos
 }

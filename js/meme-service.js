@@ -73,7 +73,26 @@ function alignText(diff) {
     currLine.align = diff;
 }
 
-function _createLine(txt, size = 48, align = 'center', fontColor = 'white', strokeColor = 'black') {
+//drag&drop service
+
+function isLineClicked(clickedPos) {
+    const currLine = gMeme.lines[gMeme.selectedLineIdx];
+    const distance = Math.sqrt((currLine.x - clickedPos.x) ** 2 + (currLine.y - clickedPos.y) ** 2)
+    return distance <= currLine.size;
+}
+
+function setLineDrag(isDrag) {
+    const currLine = gMeme.lines[gMeme.selectedLineIdx];
+    currLine.isDrag = isDrag;
+}
+
+function moveLine(dx, dy) {
+    const currLine = gMeme.lines[gMeme.selectedLineIdx];
+    currLine.x += dx
+    currLine.y += dy
+}
+
+function _createLine(txt = '', size = 48, align = 'center', fontColor = 'white', strokeColor = 'black') {
     return {
         txt,
         size,
@@ -81,6 +100,6 @@ function _createLine(txt, size = 48, align = 'center', fontColor = 'white', stro
         fontColor,
         strokeColor,
         diffFromCenter: 0,
-        isSelected: false
+        isSelected: true
     }
 }
