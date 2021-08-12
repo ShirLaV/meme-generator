@@ -254,7 +254,7 @@ header a:last-child {
 
 [name="stroke-color"],
 [name="font-color"] {
-    display: none;
+    visibility: hidden;
 }
 
 .text-options {
