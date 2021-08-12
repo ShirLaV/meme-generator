@@ -406,6 +406,9 @@ header a:last-child {
         opacity: 1;
         pointer-events: auto;
     }
+    .text-options {
+        grid: unset;
+    }
 }
 
 
