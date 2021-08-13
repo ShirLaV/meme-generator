@@ -8,9 +8,12 @@ let gFilterBy = 'all';
 _createGImgs();
 
 function setFilter(word) {
-    if (gKeywords[word] < 0) return;
+    word = word.toLowerCase();
+    if (gKeywords[word] < 0 || !gKeywords[word]) return;
     gFilterBy = word;
-    gKeywords[word]++;
+    if (gFilterBy === 'all') return;
+    console.log('gFilterBy', gFilterBy)
+    gKeywords[gFilterBy]++;
 }
 
 function getKeyWords() {

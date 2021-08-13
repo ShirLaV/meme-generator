@@ -1,6 +1,6 @@
 'use strict'
 
-function initGallety() {
+function initGallery() {
     renderImgs();
     renderSearchWords();
 }
@@ -25,8 +25,12 @@ function renderSearchWords() {
 }
 
 function onFilterImgs(word) {
+    document.querySelector('[name=search-box]').value = '';
+    const lang = getLang();
+
+    document.querySelector('[name=search-box]').placeholder = (lang === 'en') ? 'Search' : 'חיפוש';
     setFilter(word);
-    initGallety();
+    initGallery();
 }
 
 function onSetMemeImg(ev) {

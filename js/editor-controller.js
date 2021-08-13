@@ -245,8 +245,10 @@ function doUploadImg(imgDataUrl, onSuccess) {
         })
 }
 
-// function onSaveMeme() {
-//     readyCanvas();
-//     saveMemes();
-//     //TODO-toggle to meme page after saving
-// }
+function onSaveMeme() {
+    readyCanvas();
+    const memeDataUrl = gElCanvas.toDataURL('image/jpeg', 0.5);
+    saveMeme(memeDataUrl);
+    renderMemes();
+    onOpenMemes();
+}

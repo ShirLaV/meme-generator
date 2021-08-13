@@ -70,7 +70,7 @@ header {
     margin-bottom: 15px;
 }
 
-.header-conteiner {
+.header-container {
     height: 100%;
 }
 
@@ -108,7 +108,8 @@ header nav button {
 
 /* GALLERY */
 
-.gallery-page {
+.gallery-page,
+.memes-page {
     background-color: #383b42;
     border-radius: 15px;
 }
@@ -132,7 +133,7 @@ header nav button {
     border-radius: 25px;
     color: #5f6167;
     font-size: 1.312rem;
-    font-family: Poppins-light, far-regular;
+    font-family: Poppins-light, far-regular, sans-serif;
 }
 
 [name="search-box"]:focus-visible,
@@ -177,7 +178,8 @@ header nav button {
     color: white;
 }
 
-.images-container {
+.images-container,
+.memes-container {
     display: grid;
     grid-template-columns: repeat( auto-fit, minmax(150px, 1fr));
     gap: 15px;
@@ -241,7 +243,7 @@ header nav button {
     height: 60px;
     width: 90%;
     border-radius: 35px;
-    font-family: Poppins-medium;
+    font-family: Poppins-medium, sans-serif;
     text-align: center;
 }
 
@@ -270,12 +272,24 @@ header nav button {
     background-color: red;
 }
 
+.meme-editor .tools-btn.delete:hover {
+    background-color: rgb(189, 1, 1);
+}
+
 .meme-editor .tools-btn.add {
     background-color: rgb(72, 191, 86);
 }
 
+.meme-editor .tools-btn.add:hover {
+    background-color: rgb(63, 165, 75);
+}
+
 .meme-editor .tools-btn.switch-line {
     background-color: rgb(63, 165, 212);
+}
+
+.meme-editor .tools-btn.switch-line:hover {
+    background-color: rgb(56, 148, 191);
 }
 
 [name="stroke-color"],
@@ -327,7 +341,7 @@ header nav button {
 }
 
 .rect-btn {
-    font-family: Poppins-medium;
+    font-family: Poppins-medium, sans-serif;
     color: white;
     width: 12.5rem;
     font-size: 1.312rem;

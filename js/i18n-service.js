@@ -47,12 +47,16 @@ let gTrans = {
         en: 'In order to create a meme to your liking, click on any image you like and start editing your meme!' +
             ' You can edit the text, add lines and move them around, and also change colors, fonts and size.' +
             ' After you are done, share it on facebook or download it.',
-        he: '.על מנת ליצור מים יש לבחור בתמונה הרצויה בגלריה ולהתחיל לערוך! אפשר לערוך טקסט, להוסיף שורות ולהזיז אותן על גבי התמונה, וכן לשנות צבעים, גודל ופונט. אחרי שתסיימו, תוכלו לשתף בפייסבוק או להוריד למחשב'
+        he: 'על מנת ליצור מים יש לבחור בתמונה הרצויה בגלריה ולהתחיל לערוך! אפשר לערוך טקסט, להוסיף שורות ולהזיז אותן על גבי התמונה, וכן לשנות צבעים, גודל ופונט. אחרי שתסיימו, תוכלו לשתף בפייסבוק או להוריד למחשב'
     },
     Enjoy: {
         en: 'Enjoy!',
         he: '!תהנו'
     }
+}
+
+function getLang() {
+    return gCurrLang;
 }
 
 function getTrans(transKey) {
@@ -62,10 +66,6 @@ function getTrans(transKey) {
     if (!txt) txt = currKey['en'];
     return txt;
 }
-
-// function setLang(lang) {
-//     gCurrLang = lang;
-// }
 
 function toggleLang() {
     gCurrLang = (gCurrLang === 'he') ? 'en' : 'he';

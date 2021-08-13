@@ -13,14 +13,14 @@
     <div class="screen" onclick="onToggleMenu()"></div>
 
     <header>
-        <div class="header-conteiner main-layout flex space-bwtween align-center">
+        <div class="header-container main-layout flex space-bwtween align-center">
             <div class="logo flex align-center justify-center">
                 Memegen
             </div>
             <nav>
                 <ul class="header-nav flex clean-list">
                     <li class="flex align-center"><a class="flex align-center justify-center gallery active" href="#" data-trans="Gallery">Gallery</a></li>
-                    <!-- <li class="flex align-center"><a class="flex align-center justify-center" onclick="onToggleMenu()" href="# " data-trans="Memes">Memes</a></li> -->
+                    <li class="flex align-center"><a class="flex align-center justify-center memes" href="# " data-trans="Memes">Memes</a></li>
                     <li class="flex align-center"><a class="flex align-center justify-center about" href="# " data-trans="About">About</a></li>
                     <li class="flex align-center"><button class="trans-btn flex align-center justify-center" onclick="onToggleLang()">HE/ENG</button></li>
                 </ul>
@@ -31,7 +31,7 @@
 
     <section class="gallery-page page-layout">
         <nav class="flex main-layout">
-            <input type="text" name="search-box" data-trans="Search" placeholder="search">
+            <input type="text" name="search-box" data-trans="Search" placeholder="search" onchange="onFilterImgs(this.value)">
             <!-- <div class="flex search-words-container"> -->
             <ul class="search-words clean-list"></ul>
             <!-- <button data-trans="More">More</button> -->
@@ -105,10 +105,10 @@
         </section>
 
     </section>
-    <!-- 
-    <section class="saved-memes page-layout">
-        <div class="memes-conteiner"></div>
-    </section> -->
+
+    <section class="memes-page page-layout" hidden>
+        <div class="memes-container main-layout"></div>
+    </section>
 
     <section class="modal-about flex">
         <button onclick="onToggleModal()">x</button>

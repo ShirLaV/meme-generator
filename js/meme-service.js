@@ -109,13 +109,13 @@ function moveLine(dx, dy) {
 
 //saving memes
 
-// function saveMeme() {
-//     gSavedMemes.push(gMeme);
-//     saveToStorage('savedMemesDB', gSavedMemes);
-// }
+function saveMeme(memeDataUrl) {
+    if (!gSavedMemes) gSavedMemes = [];
+    gSavedMemes.push(memeDataUrl);
+    saveToStorage('savedMemesDB', gSavedMemes);
+}
 
-// function getSavedMemes() {
-//     gSavedMemes = loadFromStorage('savedMemesDB');
-
-//     return gSavedMemes;
-// }
+function getSavedMemes() {
+    gSavedMemes = loadFromStorage('savedMemesDB');
+    return gSavedMemes;
+}
