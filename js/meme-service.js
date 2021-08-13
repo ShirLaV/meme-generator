@@ -1,5 +1,6 @@
 'use strict'
 
+let gSavedMemes;
 let gMeme;
 
 function initMeme() {
@@ -10,6 +11,12 @@ function initMeme() {
     }
 }
 
+function getImgId() {
+    return gMeme.selectedImgId;
+}
+
+//editing meme functions
+
 function addLine(txt, size) {
     gMeme.lines.push(_createLine(txt, size));
 }
@@ -18,18 +25,6 @@ function deleteLine() {
     if (!gMeme.lines.length) return;
     gMeme.lines.splice(gMeme.selectedLineIdx, 1);
     selectLine();
-}
-
-function getImgId() {
-    return gMeme.selectedImgId;
-}
-
-function getLines() {
-    return gMeme.lines;
-}
-
-function getLine() {
-    return gMeme.lines[gMeme.selectedLineIdx];
 }
 
 function setColor(diff, color) {
@@ -49,8 +44,27 @@ function setFontFamily(fontFamily) {
     currLine.fontFamily = fontFamily;
 }
 
+function setFontSize(diff) {
+    if (!gMeme.lines.length) return;
+    const lineIdx = gMeme.selectedLineIdx;
+    gMeme.lines[lineIdx].size += diff;
+}
+
+function alignText(diff) {
+    const currLine = gMeme.lines[gMeme.selectedLineIdx];
+    currLine.align = diff;
+}
+
 function setMemeImg(id) {
     gMeme.selectedImgId = id;
+}
+
+function getLines() {
+    return gMeme.lines;
+}
+
+function getLine() {
+    return gMeme.lines[gMeme.selectedLineIdx];
 }
 
 function selectLine() {
@@ -61,15 +75,17 @@ function selectLine() {
     gMeme.lines[gMeme.selectedLineIdx].isSelected = true;
 }
 
-function setFontSize(diff) {
-    if (!gMeme.lines.length) return;
-    const lineIdx = gMeme.selectedLineIdx;
-    gMeme.lines[lineIdx].size += diff;
-}
-
-function alignText(diff) {
-    const currLine = gMeme.lines[gMeme.selectedLineIdx];
-    currLine.align = diff;
+function _createLine(txt = '', size, fontFamily = 'Impact-new',
+    align = 'center', fontColor = 'white', strokeColor = 'black') {
+    return {
+        txt,
+        size,
+        fontFamily,
+        align,
+        fontColor,
+        strokeColor,
+        isSelected: true
+    }
 }
 
 //drag&drop service
@@ -91,15 +107,15 @@ function moveLine(dx, dy) {
     currLine.y += dy
 }
 
-function _createLine(txt = '', size, fontFamily = 'impact',
-    align = 'center', fontColor = 'white', strokeColor = 'black') {
-    return {
-        txt,
-        size,
-        fontFamily,
-        align,
-        fontColor,
-        strokeColor,
-        isSelected: true
-    }
-}
+//saving memes
+
+// function saveMeme() {
+//     gSavedMemes.push(gMeme);
+//     saveToStorage('savedMemesDB', gSavedMemes);
+// }
+
+// function getSavedMemes() {
+//     gSavedMemes = loadFromStorage('savedMemesDB');
+
+//     return gSavedMemes;
+// }

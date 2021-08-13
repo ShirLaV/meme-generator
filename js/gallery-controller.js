@@ -29,33 +29,9 @@ function onFilterImgs(word) {
     initGallety();
 }
 
-function onToggleMenu() {
-    document.querySelector('body').classList.toggle('menu-open');
-}
-
-function onToggleEditor(ev) {
-    if (ev.target.classList.contains('gallery') && !document.querySelector('.gallery-page').hidden) return;
-    document.querySelector('.meme-editor').hidden = !document.querySelector('.meme-editor').hidden;
-    document.querySelector('.gallery-page').hidden = !document.querySelector('.gallery-page').hidden;
-}
-
 function onSetMemeImg(ev) {
     const id = +ev.target.id;
     initMeme();
     setMemeImg(id);
     initEditorMeme();
-}
-
-function addImgEventListeners() {
-    const ElImgs = document.querySelectorAll('.meme-img');
-    ElImgs.forEach(elImg => {
-        elImg.addEventListener("click", onToggleEditor);
-        elImg.addEventListener("click", onSetMemeImg);
-    })
-}
-
-function addGalleryEventListeners() {
-    const ElGalleryA = document.querySelector('.gallery');
-    ElGalleryA.addEventListener("click", onToggleEditor);
-    ElGalleryA.addEventListener("click", onToggleMenu);
 }

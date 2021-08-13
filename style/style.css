@@ -20,6 +20,11 @@
     src: url(/style/DESIGN/fonts/fa-regular-400.ttf);
 }
 
+@font-face {
+    font-family: Impact-new;
+    src: url(/style/DESIGN/fonts/HP-Impact\ Bold.ttf);
+}
+
 
 /* BASIC */
 
@@ -35,6 +40,16 @@ body {
 img {
     max-width: 100%;
     max-height: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+    padding: 0;
 }
 
 button {
@@ -60,7 +75,8 @@ header {
 }
 
 header .logo,
-header a {
+header a,
+header button {
     font-family: Poppins-medium, sans-serif;
     color: white;
 }
@@ -83,6 +99,12 @@ header a:last-child {
     width: 120px;
 }
 
+header nav button {
+    background-color: transparent;
+    border: none;
+    padding: 0px;
+}
+
 
 /* GALLERY */
 
@@ -95,14 +117,15 @@ header a:last-child {
     flex-direction: column;
     margin-bottom: 40px;
     padding-top: 25px;
-    justify-content: space-evenly;
     gap: 10px;
+    width: 100%;
 }
 
 [name="search-box"] {
     padding-inline-start: 20px;
-    margin: 0 auto;
+    margin: 0 10px;
     width: 90%;
+    align-self: center;
     height: 55px;
     background-color: #22252c;
     border: none;
@@ -117,19 +140,22 @@ header a:last-child {
     outline: none;
 }
 
-.search-words-container {
+
+/* .search-words-container {
     margin: 0 auto;
-    width: 90%;
+    flex: 1;
     gap: 20px;
-}
+} */
 
 .search-words {
-    width: 70%;
-    height: 55px;
+    margin: 0 auto;
+    min-height: 20px;
     background-color: #87898d;
     border-radius: 25px;
     display: flex;
     align-items: center;
+    width: 90%;
+    align-self: center;
 }
 
 .search-words li:first-child {
@@ -197,9 +223,9 @@ header a:last-child {
 }
 
 
-/* edit opstions */
+/* edit tools */
 
-.edit-options-container {
+.tools-container {
     flex-direction: column;
     background-color: #383b42;
     border-radius: 27px;
@@ -207,11 +233,11 @@ header a:last-child {
     width: 100%;
 }
 
-.edit-options-container>* {
+.tools-container>* {
     margin-bottom: 27px;
 }
 
-.edit-options-container [name="text"] {
+.tools-container [name="text"] {
     height: 60px;
     width: 90%;
     border-radius: 35px;
@@ -219,11 +245,11 @@ header a:last-child {
     text-align: center;
 }
 
-.edit-options-container .line-options {
+.tools-container .line-tools {
     gap: 20px;
 }
 
-.meme-editor .opt-btn {
+.meme-editor .tools-btn {
     background-color: white;
     height: 3.125rem;
     width: 3.125rem;
@@ -236,28 +262,30 @@ header a:last-child {
     cursor: pointer;
 }
 
-.meme-editor .opt-btn:hover {
+.meme-editor .tools-btn:hover {
     background-color: rgba(194, 187, 187, 0.563);
 }
 
-.meme-editor .opt-btn.delete {
+.meme-editor .tools-btn.delete {
     background-color: red;
 }
 
-.meme-editor .opt-btn.add {
+.meme-editor .tools-btn.add {
     background-color: rgb(72, 191, 86);
 }
 
-.meme-editor .opt-btn.switch-line {
+.meme-editor .tools-btn.switch-line {
     background-color: rgb(63, 165, 212);
 }
 
 [name="stroke-color"],
 [name="font-color"] {
     visibility: hidden;
+    height: 1px;
+    width: 1px;
 }
 
-.text-options {
+.text-tools {
     background-color: rgb(96, 172, 172);
     flex: 1;
     border-radius: 10px;
@@ -267,12 +295,26 @@ header a:last-child {
     gap: 25px;
 }
 
+.text-tools>*,
+.color-btn {
+    align-self: center;
+    justify-self: center;
+}
+
 .font-pick {
     grid-column: span 3;
     border-radius: 7px;
     height: 3.125rem;
     font-size: 1.5rem;
     font-weight: bold;
+}
+
+.impact {
+    font-family: Impact-new;
+}
+
+.arial {
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .stickers-container {
@@ -285,6 +327,7 @@ header a:last-child {
 }
 
 .rect-btn {
+    font-family: Poppins-medium;
     color: white;
     width: 12.5rem;
     font-size: 1.312rem;
@@ -308,6 +351,66 @@ header a:last-child {
 
 .download-btn:hover {
     background-color: #763999d0;
+}
+
+.save-btn {
+    background-color: rgb(138, 181, 52);
+}
+
+.save-btn:hover {
+    background-color: rgb(113, 148, 43);
+}
+
+
+/* MODAL */
+
+.modal-about {
+    color: white;
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    background-color: #1d2026f7;
+    width: 100%;
+    text-align: center;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 10px;
+    box-shadow: 0px 0px 0px transparent;
+    transform: translateX(100%);
+    transition: transform .6s;
+    font-size: 0.7rem;
+}
+
+body.modal-open .modal-about {
+    transform: translateX(0);
+    box-shadow: -8px 0px 20px rgb(0 0 0 / 20%);
+}
+
+.modal-about h1 {
+    font-size: 3.5em;
+}
+
+.modal-about p {
+    line-height: 1.8em;
+}
+
+.modal-about h4 {
+    font-size: 1.5em;
+}
+
+.modal-about h3 {
+    font-size: 2em;
+}
+
+.modal-about button {
+    background-color: transparent;
+    color: white;
+    border: none;
+    position: absolute;
+    font-size: 3rem;
+    top: 10px;
+    right: 20px;
 }
 
 
@@ -377,7 +480,8 @@ header a:last-child {
         transform: translateX(0);
         box-shadow: -8px 0px 20px rgb(0 0 0 / 20%);
     }
-    header a {
+    header a,
+    header nav button {
         font-size: 2rem;
     }
     .btn-menu-toggle {
@@ -406,7 +510,7 @@ header a:last-child {
         opacity: 1;
         pointer-events: auto;
     }
-    .text-options {
+    .text-tools {
         grid: unset;
     }
 }
@@ -430,11 +534,28 @@ header a:last-child {
         gap: 65px;
         margin-inline-end: 40px;
     }
+    header nav button {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        font-size: 1rem;
+        background-color: rgb(57, 180, 182);
+        border-radius: 50%;
+        line-height: 2em;
+        width: 5em;
+    }
     .btn-menu-toggle {
         display: none;
     }
     .gallery-page nav {
         flex-direction: unset;
+    }
+    [name="search-box"] {
+        width: 50%;
+    }
+    .search-words {
+        width: 50%;
+        align-self: unset;
     }
     .images-container {
         grid-template-columns: repeat( auto-fit, minmax(180px, 1fr));
@@ -450,8 +571,12 @@ header a:last-child {
         width: 50%;
         height: 500px;
     }
-    .edit-options-container {
+    .tools-container {
         width: 50%;
+    }
+    .modal-about {
+        width: 50%;
+        font-size: 1rem;
     }
     .main-layout {
         max-width: 950px;
@@ -467,6 +592,9 @@ header a:last-child {
     }
     .meme-editor {
         gap: 80px;
+    }
+    .modal-about {
+        width: 30%;
     }
     .page-layout {
         max-width: 1400px;

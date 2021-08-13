@@ -14,9 +14,22 @@ function initEditorMeme() {
 }
 
 function renderCanvas() {
+    gCtx.font = "bold 1px Impact-new";
+    gCtx.fillText('load font', 50, 50);
     clearCanvas();
     drawImg();
     drawLines();
+}
+
+//edditing functions:
+function onEditText() {
+    const line = getLine();
+    if (!line) {
+        return;
+    }
+    const txt = document.querySelector('[name=text]').value;
+    line.txt = txt;
+    renderCanvas();
 }
 
 function onSwitchLine() {
@@ -62,6 +75,9 @@ function onAlignText(diff) {
     renderCanvas();
 }
 
+
+//drawing functions
+
 function drawLines() {
     const lines = getLines();
     lines.forEach(line => {
@@ -71,7 +87,7 @@ function drawLines() {
 
 function drawLine(line) {
     const txt = line.txt;
-    gCtx.font = `${line.size}px ${line.fontFamily}`;
+    gCtx.font = `bold ${line.size}px ${line.fontFamily}`;
     gCtx.lineWidth = 2;
     gCtx.strokeStyle = line.strokeColor;
     gCtx.fillStyle = line.fontColor;
@@ -82,16 +98,6 @@ function drawLine(line) {
     gCtx.fillText(txt, line.x, line.y);
     gCtx.strokeText(txt, line.x, line.y);
     if (line.isSelected) highlightSelectedLine();
-}
-
-function onEditText() {
-    const line = getLine();
-    if (!line) {
-        return;
-    }
-    const txt = document.querySelector('[name=text]').value;
-    line.txt = txt;
-    renderCanvas();
 }
 
 function drawImg() {
@@ -109,7 +115,6 @@ function resizeCanvas() {
     const elContainer = document.querySelector('.canvas-container');
     gElCanvas.style.width = '100%';
     gElCanvas.style.height = '100%';
-    // ...then set the internal size to match
     gElCanvas.width = elContainer.offsetWidth;
     gElCanvas.height = elContainer.offsetHeight;
 }
@@ -130,7 +135,7 @@ function highlightSelectedLine() {
     gCtx.stroke();
 }
 
-//DRAG&DROP
+//drag&drop
 
 function addListeners() {
     addMouseListeners();
@@ -197,19 +202,21 @@ function getEvPos(ev) {
     return pos
 }
 
-// download&share
-
-function onDownloadImg(elLink) {
+// download&share&save
+function readyCanvas() {
     gIsImgReady = true;
     renderCanvas();
-    const imgContent = gElCanvas.toDataURL('image/jpeg');
-    elLink.href = imgContent;
     gIsImgReady = false;
 }
 
-function onShareImg() {
-    gIsImgReady = true;
-    renderCanvas();
+function onDownloadMeme(elLink) {
+    readyCanvas();
+    const imgContent = gElCanvas.toDataURL('image/jpeg');
+    elLink.href = imgContent;
+}
+
+function onShareMeme() {
+    readyCanvas();
     const imgDataUrl = gElCanvas.toDataURL("image/jpeg");
 
     function onSuccess(uploadedImgUrl) {
@@ -222,7 +229,6 @@ function onShareImg() {
         </a>`
     }
     doUploadImg(imgDataUrl, onSuccess);
-    gIsImgReady = false;
 }
 
 function doUploadImg(imgDataUrl, onSuccess) {
@@ -241,3 +247,9 @@ function doUploadImg(imgDataUrl, onSuccess) {
             console.error(err)
         })
 }
+
+// function onSaveMeme() {
+//     readyCanvas();
+//     saveMemes();
+//     //TODO-toggle to meme page after saving
+// }
