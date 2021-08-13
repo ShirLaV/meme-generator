@@ -7,22 +7,22 @@
 
 @font-face {
     font-family: Poppins-light;
-    src: url(/style/DESIGN/fonts/Poppins-Light.ttf);
+    src: url(style/DESIGN/fonts/Poppins-Light.ttf);
 }
 
 @font-face {
     font-family: Poppins-medium;
-    src: url(/style/DESIGN/fonts/Poppins-Medium.ttf);
+    src: url(style/DESIGN/fonts/Poppins-Medium.ttf);
 }
 
 @font-face {
     font-family: far-regular;
-    src: url(/style/DESIGN/fonts/fa-regular-400.ttf);
+    src: url(style/DESIGN/fonts/fa-regular-400.ttf);
 }
 
 @font-face {
     font-family: Impact-new;
-    src: url(/style/DESIGN/fonts/HP-Impact\ Bold.ttf);
+    src: url(style/DESIGN/fonts/HP-Impact-Bold.ttf);
 }
 
 
