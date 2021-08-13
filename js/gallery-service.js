@@ -12,6 +12,7 @@ function setFilter(word) {
     if (!gKeywords[word] && gKeywords[word] !== 0) return;
     gFilterBy = word;
     if (gFilterBy === 'all') return;
+    if (gKeywords[word] > 10) return;
     gKeywords[gFilterBy]++;
 }
 

@@ -65,7 +65,7 @@ a {
 /* HEADER */
 
 header {
-    background-color: rgb(57, 180, 182);
+    background: linear-gradient( .25turn, #109cb1, #30bb73);
     height: 70px;
     margin-bottom: 15px;
 }
@@ -553,7 +553,7 @@ body.modal-open .modal-about {
         bottom: 20px;
         left: 20px;
         font-size: 1rem;
-        background-color: rgb(57, 180, 182);
+        background: linear-gradient( .25turn, #109cb1, #30bb73);
         border-radius: 50%;
         line-height: 2em;
         width: 5em;
