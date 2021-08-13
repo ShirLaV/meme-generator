@@ -66,7 +66,6 @@ function onColorChange(diff, color) {
 
 function onSetFontFamily(fontFamily) {
     setFontFamily(fontFamily);
-    console.log(fontFamily)
     renderCanvas();
 }
 
@@ -161,7 +160,6 @@ function addTouchListeners() {
 function onDown(ev) {
     const pos = getEvPos(ev);
     if (!isLineClicked(pos)) return;
-    console.log('yes')
     setLineDrag(true);
     gStartPos = pos;
     document.body.style.cursor = 'grabbing';
@@ -171,7 +169,6 @@ function onMove(ev) {
     const line = getLine();
     if (!line) return;
     if (line.isDrag) {
-        console.log('hey')
         const pos = getEvPos(ev);
         const dx = pos.x - gStartPos.x;
         const dy = pos.y - gStartPos.y;
