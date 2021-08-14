@@ -47,7 +47,7 @@
             <main>
                 <label>
                     <p>+</p>
-                    <input type="file" accept="image/png, image/jpeg" name="file">
+                    <input type="file" accept="image/png, image/jpeg" name="file" onchange="onImgInput(event)">
                 </label>
                 <div class="images-container main-layout">
                 </div>
@@ -55,15 +55,11 @@
         </section>
 
         <section class="meme-editor main-layout flex" hidden>
-
             <section class="canvas-container">
                 <canvas class="main-canvas"></canvas>
             </section>
-
             <section class="tools-container flex align-center">
-
                 <input type="text" name="text" id="text" placeholder="Type text here" data-trans="Text" oninput="onEditText(event)" autocomplete="off" autofocus>
-
                 <div class="line-tools flex">
                     <button class="tools-btn switch-line" onclick="onSwitchLine()"><img
                             src="style/DESIGN/ICONS/up-and-down-opposite-double-arrows-side-by-side.png">
@@ -75,7 +71,6 @@
                         <img src="style/DESIGN/ICONS/trash.png">
                     </button>
                 </div>
-
                 <div class="text-tools">
                     <button class="tools-btn font-up" onclick="onFontSizeChange(2)">
                         <img src="style/DESIGN/ICONS/increase font - icon.png">
@@ -91,7 +86,6 @@
                     </button>
                     <button class="tools-btn"><img src="style/DESIGN/ICONS/align-to-right.png"
                             onclick="onAlignText('start')"></button>
-
                     <select class="font-pick" onchange="onSetFontFamily(this.value)">
                         <option value="Impact-new" class="impact">IMPACT</option>
                         <option value="Arial" class="arial">ARIAL</option>
@@ -106,16 +100,12 @@
                         <input type="color" name="font-color" onchange="onColorChange('font', this.value)">
                     </label>
                 </div>
-
-                <!-- <div class="stickers-container">stickers</div> -->
-
                 <div class="rect-btn-container flex">
                     <button class="rect-btn save-btn" onclick="onSaveMeme()" data-trans="Save">Save</button>
                     <button class="rect-btn share-btn" onclick=" onShareMeme()" data-trans="Share">Share</button>
                     <a href="#" class="rect-btn download-btn" onclick="onDownloadMeme(this)" download="my-img.jpg" data-trans="Download">download</a>
                 </div>
             </section>
-
         </section>
 
         <section class="memes-page page-layout" hidden>

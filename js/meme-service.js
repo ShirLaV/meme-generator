@@ -29,7 +29,7 @@ function deleteLine() {
 
 function setColor(diff, color) {
     if (!gMeme.lines.length) return;
-    const currLine = gMeme.lines[gMeme.selectedLineIdx];
+    const currLine = getLine();
     switch (diff) {
         case 'stroke':
             currLine.strokeColor = color;
@@ -40,7 +40,7 @@ function setColor(diff, color) {
 }
 
 function setFontFamily(fontFamily) {
-    const currLine = gMeme.lines[gMeme.selectedLineIdx];
+    const currLine = getLine();
     currLine.fontFamily = fontFamily;
 }
 
@@ -51,7 +51,7 @@ function setFontSize(diff) {
 }
 
 function alignText(diff) {
-    const currLine = gMeme.lines[gMeme.selectedLineIdx];
+    const currLine = getLine();
     currLine.align = diff;
 }
 
@@ -91,18 +91,18 @@ function _createLine(txt = '', size, fontFamily = 'Impact-new',
 //drag&drop service
 
 function isLineClicked(clickedPos) {
-    const currLine = gMeme.lines[gMeme.selectedLineIdx];
+    const currLine = getLine();
     const distance = Math.sqrt((currLine.x - clickedPos.x) ** 2 + (currLine.y - clickedPos.y) ** (-2))
     return distance <= currLine.size;
 }
 
 function setLineDrag(isDrag) {
-    const currLine = gMeme.lines[gMeme.selectedLineIdx];
+    const currLine = getLine();
     currLine.isDrag = isDrag;
 }
 
 function moveLine(dx, dy) {
-    const currLine = gMeme.lines[gMeme.selectedLineIdx];
+    const currLine = getLine();
     currLine.x += dx
     currLine.y += dy
 }

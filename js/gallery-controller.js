@@ -44,14 +44,11 @@ function onSetMemeImg(ev) {
 //uploading img from user
 
 function onImgInput(ev) {
-
-    loadImageFromInput(ev, setUserImg)
-
+    loadImageFromInput(ev, setUserImg);
 }
 
 function loadImageFromInput(ev, onImageReady) {
     var reader = new FileReader()
-
     reader.onload = function(event) {
         var img = new Image()
         img.onload = onImageReady.bind(null, img)

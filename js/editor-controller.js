@@ -23,7 +23,6 @@ function renderCanvas() {
 }
 
 function setUserImg(img) {
-    console.log('imagefromuser')
     initMeme();
     gUserImg = img;
     onOpenEditor();
@@ -33,9 +32,7 @@ function setUserImg(img) {
 //edditing functions:
 function onEditText() {
     const line = getLine();
-    if (!line) {
-        return;
-    }
+    if (!line) return;
     const txt = document.querySelector('[name=text]').value;
     line.txt = txt;
     renderCanvas();
@@ -87,7 +84,6 @@ function onAlignText(diff) {
     alignText(diff);
     renderCanvas();
 }
-
 
 //drawing functions
 
@@ -247,8 +243,9 @@ function onShareMeme() {
 }
 
 function doUploadImg(imgDataUrl, onSuccess) {
+    s
     const formData = new FormData();
-    formData.append('img', imgDataUrl)
+    formData.append('img', imgDataUrl);
     fetch('//ca-upload.com/here/upload.php', {
             method: 'POST',
             body: formData
