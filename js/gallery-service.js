@@ -1,6 +1,6 @@
 'use strict'
 
-const gKeywords = { 'all': 0, 'happy': 0, 'funny': 0, 'animal': 0, 'man': 0, 'cartoon': 0, 'baby': 0 };
+const gKeywords = { 'all': 0, 'happy': 3, 'funny': 4, 'animal': 10, 'man': 6, 'cartoon': 20, 'baby': 3 };
 const KEY = 'imgsDB';
 let gImgs;
 let gFilterBy = 'all';
@@ -12,7 +12,6 @@ function setFilter(word) {
     if (!gKeywords[word] && gKeywords[word] !== 0) return;
     gFilterBy = word;
     if (gFilterBy === 'all') return;
-    if (gKeywords[word] > 10) return;
     gKeywords[gFilterBy]++;
 }
 

@@ -5,6 +5,7 @@ const gCtx = gElCanvas.getContext('2d');
 const gTouchEvs = ['touchstart', 'touchmove', 'touchend'];
 let gStartPos;
 let gIsImgReady;
+let gUserImg;
 
 function initEditorMeme() {
     gIsImgReady = false;
@@ -19,6 +20,14 @@ function renderCanvas() {
     clearCanvas();
     drawImg();
     drawLines();
+}
+
+function setUserImg(img) {
+    console.log('imagefromuser')
+    initMeme();
+    gUserImg = img;
+    onOpenEditor();
+    initEditorMeme();
 }
 
 //edditing functions:
@@ -41,6 +50,11 @@ function onSwitchLine() {
 
 function onAddLine(txt = 'your text') {
     addLine(txt, gElCanvas.width / 10);
+    const lines = getLines();
+    if (lines.length === 1) lines[0].y = 80;
+    if (lines.length === 2) {
+        lines[1].y = gElCanvas.height - 80;
+    }
     selectLine();
     document.querySelector('[name="text"]').value = '';
     document.querySelector('[name="text"]').placeholder = 'Type your text here';
@@ -79,18 +93,17 @@ function onAlignText(diff) {
 
 function drawLines() {
     const lines = getLines();
-    lines.forEach(line => {
-        drawLine(line);
+    lines.forEach(function(line, idx) {
+        drawLine(line, idx);
     });
 }
 
-function drawLine(line) {
+function drawLine(line, idx) {
     const txt = line.txt;
     gCtx.font = `bold ${line.size}px ${line.fontFamily}`;
     gCtx.lineWidth = 2;
     gCtx.strokeStyle = line.strokeColor;
     gCtx.fillStyle = line.fontColor;
-    // const textWidth = gCtx.measureText(txt).width;
     gCtx.textAlign = line.align;
     if (!line.x) line.x = gElCanvas.width / 2;
     if (!line.y) line.y = gElCanvas.height / 2;
@@ -102,6 +115,11 @@ function drawLine(line) {
 function drawImg() {
     var img = new Image();
     const imgId = getImgId();
+    if (!imgId) {
+        if (!gUserImg) return;
+        gCtx.drawImage(gUserImg, 0, 0, gElCanvas.width, gElCanvas.height);
+        return;
+    }
     img.src = `meme-imgs/${imgId}.jpg`;
     gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height);
 }

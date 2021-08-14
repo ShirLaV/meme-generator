@@ -28,88 +28,101 @@
             <button class="btn-menu-toggle" onclick="onToggleMenu()">☰</button>
         </div>
     </header>
-
-    <section class="gallery-page page-layout">
-        <nav class="flex main-layout">
-            <input type="text" name="search-box" data-trans="Search" placeholder="search" onchange="onFilterImgs(this.value)">
-            <!-- <div class="flex search-words-container"> -->
-            <ul class="search-words clean-list"></ul>
-            <!-- <button data-trans="More">More</button> -->
-            <!-- </div> -->
-        </nav>
-        <main>
-            <div class="images-container main-layout"></div>
-        </main>
-    </section>
-
-    <section class="meme-editor main-layout flex" hidden>
-
-        <section class="canvas-container">
-            <canvas class="main-canvas"></canvas>
+    <main>
+        <section class="gallery-page page-layout">
+            <nav class="flex main-layout">
+                <input list="search-words" type="text" name="search-box" data-trans="Search" placeholder="search" onchange="onFilterImgs(this.value)">
+                <datalist id="search-words">
+                    <option value="all">
+                    <option value="funny">
+                    <option value="happy">
+                    <option value="animal">
+                    <option value="man">
+                    <option value="cartoon">
+                    <option value="baby">
+                </datalist>
+                <ul class="search-words clean-list">
+                </ul>
+            </nav>
+            <main>
+                <label>
+                    <p>+</p>
+                    <input type="file" accept="image/png, image/jpeg" name="file">
+                </label>
+                <div class="images-container main-layout">
+                </div>
+            </main>
         </section>
 
-        <section class="tools-container flex align-center">
+        <section class="meme-editor main-layout flex" hidden>
 
-            <input type="text" name="text" id="text" placeholder="Type text here" data-trans="Text" oninput="onEditText(event)" autocomplete="off" autofocus>
+            <section class="canvas-container">
+                <canvas class="main-canvas"></canvas>
+            </section>
 
-            <div class="line-tools flex">
-                <button class="tools-btn switch-line" onclick="onSwitchLine()"><img
-                        src="style/DESIGN/ICONS/up-and-down-opposite-double-arrows-side-by-side.png">
-                </button>
-                <button class="tools-btn add" onclick="onAddLine()">
-                    <img src="style/DESIGN/ICONS/add.png">
-                </button>
-                <button class="tools-btn delete" onclick="onDeleteLine()">
-                    <img src="style/DESIGN/ICONS/trash.png">
-                </button>
-            </div>
+            <section class="tools-container flex align-center">
 
-            <div class="text-tools">
-                <button class="tools-btn font-up" onclick="onFontSizeChange(2)">
-                    <img src="style/DESIGN/ICONS/increase font - icon.png">
-                </button>
-                <button class="tools-btn font-down" onclick="onFontSizeChange(-2)">
-                    <img src="style/DESIGN/ICONS/decrease font - icon.png">
-                </button class="tools-btn">
-                <button class="tools-btn">
-                    <img src="style/DESIGN/ICONS/align-to-left.png" onclick="onAlignText('end')">
-                </button>
-                <button class="tools-btn">
-                    <img src="style/DESIGN/ICONS/center-text-alignment.png" onclick="onAlignText('center')">
-                </button>
-                <button class="tools-btn"><img src="style/DESIGN/ICONS/align-to-right.png"
-                        onclick="onAlignText('start')"></button>
+                <input type="text" name="text" id="text" placeholder="Type text here" data-trans="Text" oninput="onEditText(event)" autocomplete="off" autofocus>
 
-                <select class="font-pick" onchange="onSetFontFamily(this.value)">
-                    <option value="Impact-new" class="impact">IMPACT</option>
-                    <option value="Arial" class="arial">ARIAL</option>
-                    <option value="Poppins-medium">POPPINS</option>
-                </select>
-                <label>
-                    <img class="tools-btn color-btn" src="style/DESIGN/ICONS/text stroke.png">
-                    <input type="color" name="stroke-color" onchange="onColorChange('stroke', this.value)">
-                </label>
-                <label>
-                    <img class="tools-btn color-btn" src="style/DESIGN/ICONS/paint-board-and-brush.png">
-                    <input type="color" name="font-color" onchange="onColorChange('font', this.value)">
-                </label>
-            </div>
+                <div class="line-tools flex">
+                    <button class="tools-btn switch-line" onclick="onSwitchLine()"><img
+                            src="style/DESIGN/ICONS/up-and-down-opposite-double-arrows-side-by-side.png">
+                    </button>
+                    <button class="tools-btn add" onclick="onAddLine()">
+                        <img src="style/DESIGN/ICONS/add.png">
+                    </button>
+                    <button class="tools-btn delete" onclick="onDeleteLine()">
+                        <img src="style/DESIGN/ICONS/trash.png">
+                    </button>
+                </div>
 
-            <!-- <div class="stickers-container">stickers</div> -->
+                <div class="text-tools">
+                    <button class="tools-btn font-up" onclick="onFontSizeChange(2)">
+                        <img src="style/DESIGN/ICONS/increase font - icon.png">
+                    </button>
+                    <button class="tools-btn font-down" onclick="onFontSizeChange(-2)">
+                        <img src="style/DESIGN/ICONS/decrease font - icon.png">
+                    </button class="tools-btn">
+                    <button class="tools-btn">
+                        <img src="style/DESIGN/ICONS/align-to-left.png" onclick="onAlignText('end')">
+                    </button>
+                    <button class="tools-btn">
+                        <img src="style/DESIGN/ICONS/center-text-alignment.png" onclick="onAlignText('center')">
+                    </button>
+                    <button class="tools-btn"><img src="style/DESIGN/ICONS/align-to-right.png"
+                            onclick="onAlignText('start')"></button>
 
-            <div class="rect-btn-container flex">
-                <button class="rect-btn save-btn" onclick="onSaveMeme()" data-trans="Save">Save</button>
-                <button class="rect-btn share-btn" onclick=" onShareMeme()" data-trans="Share">Share</button>
-                <a href="#" class="rect-btn download-btn" onclick="onDownloadMeme(this)" download="my-img.jpg" data-trans="Download">download</a>
-            </div>
+                    <select class="font-pick" onchange="onSetFontFamily(this.value)">
+                        <option value="Impact-new" class="impact">IMPACT</option>
+                        <option value="Arial" class="arial">ARIAL</option>
+                        <option value="Poppins-medium">POPPINS</option>
+                    </select>
+                    <label>
+                        <img class="tools-btn color-btn" src="style/DESIGN/ICONS/text stroke.png">
+                        <input type="color" name="stroke-color" onchange="onColorChange('stroke', this.value)">
+                    </label>
+                    <label>
+                        <img class="tools-btn color-btn" src="style/DESIGN/ICONS/paint-board-and-brush.png">
+                        <input type="color" name="font-color" onchange="onColorChange('font', this.value)">
+                    </label>
+                </div>
+
+                <!-- <div class="stickers-container">stickers</div> -->
+
+                <div class="rect-btn-container flex">
+                    <button class="rect-btn save-btn" onclick="onSaveMeme()" data-trans="Save">Save</button>
+                    <button class="rect-btn share-btn" onclick=" onShareMeme()" data-trans="Share">Share</button>
+                    <a href="#" class="rect-btn download-btn" onclick="onDownloadMeme(this)" download="my-img.jpg" data-trans="Download">download</a>
+                </div>
+            </section>
+
         </section>
 
-    </section>
+        <section class="memes-page page-layout" hidden>
+            <div class="memes-container main-layout"></div>
+        </section>
 
-    <section class="memes-page page-layout" hidden>
-        <div class="memes-container main-layout"></div>
-    </section>
-
+    </main>
     <section class="modal-about flex">
         <button onclick="onToggleModal()">x</button>
         <h1 data-trans="About">About</h1>

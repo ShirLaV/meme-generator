@@ -4,6 +4,7 @@ function onInit() {
     addEventListeners(document.querySelector('.gallery'), [onToggleMenu, onOpenGallery]);
     addEventListeners(document.querySelector('.about'), [onToggleMenu, onToggleModal]);
     addEventListeners(document.querySelector('.memes'), [onToggleMenu, onOpenMemes]);
+    addUploadEventListeners();
     initGallery();
     initMemes();
     doTrans();
@@ -70,11 +71,17 @@ function onOpenPage(el) {
     el.classList.add('active')
 }
 
-
 function addImgEventListeners() {
     const ElImgs = document.querySelectorAll('.meme-img');
     ElImgs.forEach(elImg => {
         elImg.addEventListener("click", onOpenEditor);
         elImg.addEventListener("click", onSetMemeImg);
     })
+}
+
+function addUploadEventListeners() {
+    const elUploadInput = document.querySelector('[type=file]');
+    console.log(elUploadInput)
+        // elUploadInput.addEventListener("click", onOpenEditor);
+    elUploadInput.addEventListener("change", onImgInput);
 }

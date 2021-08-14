@@ -5,7 +5,7 @@ let gMeme;
 
 function initMeme() {
     gMeme = {
-        selectedImgId: 1,
+        selectedImgId: 0,
         selectedLineIdx: 0,
         lines: []
     }
