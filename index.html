@@ -31,22 +31,25 @@
     <main>
         <section class="gallery-page page-layout">
             <nav class="flex main-layout">
-                <input list="search-words" type="text" name="search-box" data-trans="Search" placeholder="search" onchange="onFilterImgs(this.value)">
-                <datalist id="search-words">
-                    <option value="all">
-                    <option value="funny">
-                    <option value="happy">
-                    <option value="animal">
-                    <option value="man">
-                    <option value="cartoon">
-                    <option value="baby">
-                </datalist>
+                <div class="search-box">
+                    <input list="search-words" type="text" name="search-box" data-trans="Search" placeholder="search" onchange="onFilterImgs(this.value)">
+                    <datalist id="search-words">
+                        <option value="all">
+                        <option value="funny">
+                        <option value="happy">
+                        <option value="animal">
+                        <option value="man">
+                        <option value="cartoon">
+                        <option value="baby">
+                    </datalist>
+                    <img src="style/DESIGN/ICONS/search-icon.png" />
+                </div>
                 <ul class="search-words clean-list">
                 </ul>
             </nav>
             <main>
                 <label>
-                    <p>+</p>
+                    <p>Upload</p>
                     <input type="file" accept="image/png, image/jpeg" name="file" onchange="onImgInput(event)">
                 </label>
                 <div class="images-container main-layout">
@@ -86,10 +89,10 @@
                     </button>
                     <button class="tools-btn"><img src="style/DESIGN/ICONS/align-to-right.png"
                             onclick="onAlignText('start')"></button>
-                    <select class="font-pick" onchange="onSetFontFamily(this.value)">
+                    <select class="tools-btn font-pick" onchange="onSetFontFamily(this.value)">
                         <option value="Impact-new" class="impact">IMPACT</option>
                         <option value="Arial" class="arial">ARIAL</option>
-                        <option value="Poppins-medium">POPPINS</option>
+                        <option value="Poppins-medium" class="poppins">POPPINS</option>
                     </select>
                     <label>
                         <img class="tools-btn color-btn" src="style/DESIGN/ICONS/text stroke.png">

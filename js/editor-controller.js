@@ -15,8 +15,6 @@ function initEditorMeme() {
 }
 
 function renderCanvas() {
-    gCtx.font = "bold 1px Impact-new";
-    gCtx.fillText('load font', 50, 50);
     clearCanvas();
     drawImg();
     drawLines();
@@ -94,7 +92,7 @@ function drawLines() {
     });
 }
 
-function drawLine(line, idx) {
+function drawLine(line) {
     const txt = line.txt;
     gCtx.font = `bold ${line.size}px ${line.fontFamily}`;
     gCtx.lineWidth = 2;
@@ -126,10 +124,13 @@ function clearCanvas() {
 
 function resizeCanvas() {
     const elContainer = document.querySelector('.canvas-container');
-    gElCanvas.style.width = '100%';
-    gElCanvas.style.height = '100%';
-    gElCanvas.width = elContainer.offsetWidth;
-    gElCanvas.height = elContainer.offsetHeight;
+    // gElCanvas.style.width = '100%';
+    // gElCanvas.style.height = '100%';
+    gElCanvas.width = elContainer.offsetWidth - 20
+        // elContainer.style.height = elContainer.style.width
+        // elContainer.style.height = elContainer.offsetWidth
+    gElCanvas.height = elContainer.offsetWidth - 20
+    elContainer.style.height = `${gElCanvas.height+20}px`
 }
 
 function highlightSelectedLine() {
